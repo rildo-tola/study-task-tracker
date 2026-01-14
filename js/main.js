@@ -45,3 +45,10 @@ taskList.appendChild(li);
 // Reset input field
 taskInput.value ="";
 })
+
+// Allow pressing Enter to add a task
+taskInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    addTaskBtn.click();
+  }
+});

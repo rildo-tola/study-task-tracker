@@ -36,3 +36,12 @@ li {
   text-decoration: line-through;
   color: gray;
 }
+
+li span {
+  cursor: pointer;
+}
+
+li span:hover {
+  opacity: 0.8;
+}
+
