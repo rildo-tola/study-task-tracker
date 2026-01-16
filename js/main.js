@@ -3,6 +3,60 @@ const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
+// Load tasks from localStorage or start with empty list
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks(){
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function renderTasks(){
+  taskList.innerHTML = "";
+
+  if (tasks.length === 0) {
+    const emptyMsg = document.createElement("p");
+    emptyMsg.textContent = "No tasks yet. Add one 👇";
+    emptyMsg.classList.add("empty-state");
+    taskList.appendChild(emptyMsg);
+    return; }
+
+  tasks.forEach((task, index) => {
+    const li = document.createElement("li");
+
+    const span = document.createElement("span");
+    span.textContent = task.text;
+
+    if(task.completed){
+      span.classList.add("completed");
+    }
+
+span.addEventListener("click", () => {
+  tasks[index].completed = !tasks[index].completed;
+  saveTasks();
+  renderTasks();
+});
+
+const deleteBtn = document.createElement("button");
+deleteBtn.textContent = "❌";
+
+deleteBtn.addEventListener("click", () => {
+  li.classList.add("fade-out");
+
+  setTimeout(() => {
+    tasks.splice(index, 1);
+    saveTasks();
+    renderTasks();
+  }, 300);
+});
+
+
+li.appendChild(span);
+li.appendChild(deleteBtn);
+taskList.appendChild(li);
+
+  });
+}
+
 //2. Add click event to the button
 addTaskBtn.addEventListener("click", () => {
 
@@ -16,32 +70,13 @@ if(taskText === ""){
 
 }
 
-// 5. Create a new list item
-const li =document.createElement("li");
+tasks.push({
+  text: taskText,
+  completed: false
+});
 
-// Task text element
-const span = document.createElement("span");
- span.textContent = taskText;
-
- // Toggle completed state when clicked
- span.addEventListener("click", () => {
-span.classList.toggle("completed");
- });
-
- // Delete button
-const deleteBtn = document.createElement("button");
-deleteBtn.textContent = "❌";
-
-// Remove task when delete button is clicked
-deleteBtn.addEventListener("click", () => {
-    li.remove();
-})
-
-// Build task item
-li.appendChild(span);
-li.appendChild(deleteBtn);
-taskList.appendChild(li);
-
+saveTasks();
+renderTasks();
 // Reset input field
 taskInput.value ="";
 })
@@ -52,3 +87,5 @@ taskInput.addEventListener("keydown", (event) => {
     addTaskBtn.click();
   }
 });
+
+renderTasks()
