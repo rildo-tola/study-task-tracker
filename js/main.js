@@ -1,4 +1,5 @@
 // Selecct key elements from the DOM
+const taskCounter = document.getElementById("taskCounter");
 const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
@@ -19,6 +20,14 @@ function renderTasks(){
     emptyMsg.classList.add("empty-state");
     taskList.appendChild(emptyMsg);
     return; }
+
+const remainingTasks = tasks.filter(task => !task.completed).length;
+
+taskCounter.textContent =
+  remainingTasks === 0
+    ? "All tasks completed 🎉"
+    : `${remainingTasks} task${remainingTasks > 1 ? "s" : ""} remaining`;
+
 
   tasks.forEach((task, index) => {
     const li = document.createElement("li");

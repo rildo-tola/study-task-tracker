@@ -1,5 +1,4 @@
 
-
 body {
   font-family: Arial, sans-serif;
   max-width: 600px;
@@ -22,6 +21,7 @@ button {
   transition: transform 0.1s ease, background 0.2s ease;
   padding: 8px 12px;
   cursor: pointer;
+   transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 li {
@@ -33,16 +33,19 @@ li {
   border-radius: 4px;
   align-items: center;
   animation: slideIn 0.3s ease forwards;
+ transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .completed {
   text-decoration: line-through;
   color: #999;
   opacity: 0.7;
+  transition: color 0.2 ease;
 }
 
 li span {
   cursor: pointer;
+transition: color 0.2 ease;
 }
 
 li span:hover {
@@ -56,6 +59,7 @@ button:hover {
 
 button:active {
   transform: scale(0.95);
+  opacity: 0.8;
 }
 
 @keyframes slideIn {
@@ -73,4 +77,24 @@ button:active {
   opacity: 0;
   transform: translateX(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.empty-state {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+
+#taskCounter {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+li:hover {
+  background-color: #f2f2f2;
+  transform: scale(1.01);
+  cursor: pointer;
 }
