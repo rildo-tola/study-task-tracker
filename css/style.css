@@ -22,6 +22,8 @@ button {
   padding: 8px 12px;
   cursor: pointer;
    transition: transform 0.1s ease, opacity 0.1s ease;
+   padding: 6px 10px;
+   border-radius: 4px;
 }
 
 li {
@@ -97,4 +99,10 @@ li:hover {
   background-color: #f2f2f2;
   transform: scale(1.01);
   cursor: pointer;
+}
+
+button:focus,
+input:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
 }

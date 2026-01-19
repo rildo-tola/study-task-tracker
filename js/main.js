@@ -4,6 +4,7 @@ const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
+
 // Load tasks from localStorage or start with empty list
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -47,6 +48,7 @@ span.addEventListener("click", () => {
 
 const deleteBtn = document.createElement("button");
 deleteBtn.textContent = "❌";
+deleteBtn.setAttribute("aria-label", "Delete task");
 
 deleteBtn.addEventListener("click", () => {
   li.classList.add("fade-out");
