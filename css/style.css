@@ -36,6 +36,7 @@ li {
   align-items: center;
   animation: slideIn 0.3s ease forwards;
  transition: background-color 0.2s ease, transform 0.1s ease;
+ gap: 1rem;
 }
 
 .completed {
@@ -46,8 +47,12 @@ li {
 }
 
 li span {
+  flex: 1;
   cursor: pointer;
 transition: color 0.2 ease;
+word-wrap: break-word;
+overflow-wrap: break-word;
+white-space: normal;
 }
 
 li span:hover {

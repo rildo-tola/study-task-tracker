@@ -12,61 +12,67 @@ function saveTasks(){
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function renderTasks(){
+function renderTasks() {
   taskList.innerHTML = "";
 
+  // Calculate remaining tasks
+  const remainingTasks = tasks.filter(task => !task.completed).length;
+
+  // Always update counter
+  if (tasks.length === 0) {
+    taskCounter.textContent = "0 tasks remaining";
+  } else if (remainingTasks === 0) {
+    taskCounter.textContent = "All tasks completed 🎉";
+  } else {
+    taskCounter.textContent = `${remainingTasks} task${remainingTasks > 1 ? "s" : ""} remaining`;
+  }
+
+  // Show empty state
   if (tasks.length === 0) {
     const emptyMsg = document.createElement("p");
     emptyMsg.textContent = "No tasks yet. Add one 👇";
     emptyMsg.classList.add("empty-state");
     taskList.appendChild(emptyMsg);
-    return; }
+    return;
+  }
 
-const remainingTasks = tasks.filter(task => !task.completed).length;
-
-taskCounter.textContent =
-  remainingTasks === 0
-    ? "All tasks completed 🎉"
-    : `${remainingTasks} task${remainingTasks > 1 ? "s" : ""} remaining`;
-
-
+  // Render tasks
   tasks.forEach((task, index) => {
     const li = document.createElement("li");
 
     const span = document.createElement("span");
     span.textContent = task.text;
 
-    if(task.completed){
+    if (task.completed) {
       span.classList.add("completed");
     }
 
-span.addEventListener("click", () => {
-  tasks[index].completed = !tasks[index].completed;
-  saveTasks();
-  renderTasks();
-});
+    span.addEventListener("click", () => {
+      tasks[index].completed = !tasks[index].completed;
+      saveTasks();
+      renderTasks();
+    });
 
-const deleteBtn = document.createElement("button");
-deleteBtn.textContent = "❌";
-deleteBtn.setAttribute("aria-label", "Delete task");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "❌";
+    deleteBtn.setAttribute("aria-label", "Delete task");
 
-deleteBtn.addEventListener("click", () => {
-  li.classList.add("fade-out");
+    deleteBtn.addEventListener("click", () => {
+      li.classList.add("fade-out");
 
-  setTimeout(() => {
-    tasks.splice(index, 1);
-    saveTasks();
-    renderTasks();
-  }, 300);
-});
+      setTimeout(() => {
+        tasks.splice(index, 1);
+        saveTasks();
+        renderTasks();
+      }, 300);
+    });
 
-
-li.appendChild(span);
-li.appendChild(deleteBtn);
-taskList.appendChild(li);
-
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+    taskList.appendChild(li);
   });
 }
+
 
 //2. Add click event to the button
 addTaskBtn.addEventListener("click", () => {
